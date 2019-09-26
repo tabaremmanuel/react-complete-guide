@@ -1,28 +1,51 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+
 import classes from './Cockpit.css';
 
 const cockpit = props => {
-    const assignClasses = [];
-    let btnClass = '';
+  useEffect(() => {
+    console.log('[Cockpit.js] useEffect');
+    //http request...
 
-    if(props.showPersons)
-      btnClass = classes.Red;
+    setTimeout(()=>{
+      alert('test')
+    },1000);
 
-    if(props.persons.length <=2)
-      assignClasses.push(classes.red);
-    if(props.persons.length <= 1)
-      assignClasses.push(classes.bold);
+    return () => {
+      console.log('[Cockpit.js] Clean up work in useEffect');
+    }
+  }, []);
 
-    return(
-      <div className={classes.Cockpit}>
-        <h1>{props.title}</h1>
-        <p className={assignClasses.join(' ')}>This is really working</p>
+  useEffect(() => {
+    console.log('[Cockpit.js] 2nd useEffect');
+    return () => {
+      console.log('[Cockpit.js] Clean up work in 2nd useEffect');
+    }
+  });
 
-        <button
-          className={btnClass}
-          onClick={props.clicked}>Toggle Persons</button>
-      </div>
-    )
+  // useEffect();
+
+  const assignClasses = [];
+  let btnClass = '';
+
+  if(props.showPersons)
+    btnClass = classes.Red;
+
+  if(props.persons.length <=2)
+    assignClasses.push(classes.red);
+  if(props.persons.length <= 1)
+    assignClasses.push(classes.bold);
+
+  return(
+    <div className={classes.Cockpit}>
+      <h1>{props.title}</h1>
+      <p className={assignClasses.join(' ')}>This is really working</p>
+
+      <button
+        className={btnClass}
+        onClick={props.clicked}>Toggle Persons</button>
+    </div>
+  )
 };
 
 export default cockpit;
