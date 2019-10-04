@@ -31,9 +31,9 @@ const cockpit = props => {
   if(props.showPersons)
     btnClass = classes.Red;
 
-  if(props.persons.length <=2)
+  if(props.personsLength <=2)
     assignClasses.push(classes.red);
-  if(props.persons.length <= 1)
+  if(props.personsLength <= 1)
     assignClasses.push(classes.bold);
 
   return(
@@ -48,4 +48,4 @@ const cockpit = props => {
   )
 };
 
-export default cockpit;
+export default React.memo(cockpit);
