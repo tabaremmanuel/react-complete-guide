@@ -1,9 +1,14 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useContext, useState } from "react";
 
 import classes from "./Cockpit.css";
+import AuthContext from "../../context/auth-context";
 
 const cockpit = props => {
   const toggleBtnRef = useRef(null);
+  const authContext = useContext(AuthContext);
+  const [count, setCount] = useState(0);
+
+  console.log(authContext);
 
   useEffect(() => {
     console.log("[Cockpit.js] useEffect");
@@ -13,7 +18,7 @@ const cockpit = props => {
     //   alert('test')
     // },1000);
 
-    toggleBtnRef.current.click();
+    toggleBtnRef.current.click();   
 
     return () => {
       console.log("[Cockpit.js] Clean up work in useEffect");
@@ -22,6 +27,7 @@ const cockpit = props => {
 
   useEffect(() => {
     console.log("[Cockpit.js] 2nd useEffect");
+    document.title = 'You clicked '+count+' times';
     return () => {
       console.log("[Cockpit.js] Clean up work in 2nd useEffect");
     };
@@ -40,12 +46,14 @@ const cockpit = props => {
   return (
     <div className={classes.Cockpit}>
       <h1>{props.title}</h1>
+      <h2>It is {props.date.toLocaleTimeString()}.</h2>
       <p className={assignClasses.join(" ")}>This is really working</p>
 
       <button ref={toggleBtnRef} className={btnClass} onClick={props.clicked}>
         Toggle Persons
       </button>
-      <button onClick={props.login}>Log in</button>
+      <button onClick={authContext.login}>Log in</button>
+      <button onClick={() => setCount(count+1)}>Click me</button>
     </div>
   );
 };
